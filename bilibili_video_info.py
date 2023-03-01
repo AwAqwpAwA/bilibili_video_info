@@ -28,6 +28,16 @@ bvid: {d['bvid']}
 类型: {['自制','搬运'][d['copyright']-1]}
 稿件发布时间: {T(d['pubdate'])}
 用户投稿时间: {T(d['ctime'])}
+播放数: {d['stat']['view']}
+弹幕数: {d['stat']['danmaku']}
+评论数: {d['stat']['reply']}
+收藏数: {d['stat']['favorite']}
+投币数: {d['stat']['coin']}
+分享数: {d['stat']['share']}
+获赞数: {d['stat']['like']}
+点踩数: {d['stat']['dislike']}
+当前排名: {d['stat']['now_rank']}
+历史最高排行: {d['stat']['his_rank']}
 封面: {d['pic']}
 简介: 
 {'---'*30}
