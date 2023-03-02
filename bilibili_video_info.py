@@ -1,8 +1,10 @@
+#哔哩哔哩视频信息
 #感谢 https://github.com/SocialSisterYi/bilibili-API-collect 提供API文档!
-#by cueavyqwp(cy)/AwAqwpAwA
-#https://space.bilibili.com/500328587
-#https://github.com/AwAqwpAwA
+#bilibili: https://space.bilibili.com/500328587
+#github: https://github.com/AwAqwpAwA
+#mail: cueavy@163.com/outlook.com
 #哔哩哔哩干杯!
+
 import requests , json , time
 
 def T(Time):return time.strftime("%Y/%m/%d %H:%M:%S",time.localtime(Time))#秒级时间戳转字符串
@@ -10,19 +12,18 @@ def T(Time):return time.strftime("%Y/%m/%d %H:%M:%S",time.localtime(Time))#秒�
 while 1:
     Get="?"
     av_or_bv=input("请输入AV号或BV号>>>")
-    if len(av_or_bv) < 3 : continue
-    if av_or_bv[:2] in ["BV","bv","Bv","bV"]:Get+=f"bvid=BV{av_or_bv[2:]}"
-    elif av_or_bv[:2] in ["AV","av","Av","aV"]:Get+=f"aid={av_or_bv[2:]}"
-    else:Get+=f"aid={av_or_bv}"
-    response=requests.get(f"https://api.bilibili.com/x/web-interface/view{Get}")
+    if len(av_or_bv) <= 2 :Get+=f"aid={av_or_bv}"#AV
+    elif av_or_bv[:2] in ["BV","bv","Bv","bV"]:Get+=f"bvid=BV{av_or_bv[2:]}"#BV
+    elif av_or_bv[:2] in ["AV","av","Av","aV"]:Get+=f"aid={av_or_bv[2:]}"#AV
+    else:Get+=f"aid={av_or_bv}"#AV
+    response=requests.get(f"https://api.bilibili.com/x/web-interface/view{Get}")#调用API
     List=json.loads(response.content)
-    if List["code"] != 0:
+    if List["code"] != 0:#没有成功加载
         print(List["code"],{-400:"请求错误",-403:"权限不足",-404:"无视频",62002:"稿件不可见",62004:"稿件审核中"}[List["code"]])
         continue
     d=List["data"]
-    print(f"""
-{'==='*30}
-标题:[{d['title']}]
+    print(f"""{'==='*30}
+标题:{d['title']}
 aid: {d['aid']}
 bvid: {d['bvid']}
 类型: {['自制','搬运'][d['copyright']-1]}
