@@ -20,3 +20,10 @@ def Video_info(av_or_bv):
     response=requests.get(f"https://api.bilibili.com/x/web-interface/view{Get}")#调用API
     List=json.loads(response.content)
     return List
+
+def Time(T):#把秒转换为Srt可识别的格式
+    millisecond=int(T*1000)
+    second=int(T%60)
+    minute=int(T/60%60)
+    hour=int(T/60/60%60)
+    return str(hour)+":"+str(minute)+":"+str(second)+","+str(millisecond)[-3:]
